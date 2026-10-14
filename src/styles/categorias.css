@@ -1,0 +1,23 @@
+.categorias{
+    width: 100%;
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.group-categorias{
+    display: flex;
+     width: 100%;
+     height: 200px;
+     gap: 100px;
+}
+
+.contenedor-categorias{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+}

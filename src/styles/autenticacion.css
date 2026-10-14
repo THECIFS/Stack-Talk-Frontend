@@ -1,0 +1,28 @@
+.autenticacion h1{
+    margin: 0;
+    font-size: 25px;
+    color: white;
+}
+
+.autenticacion h2{
+    margin: 0;
+    font-size: 16px;
+    color: white;
+}
+
+.autenticacion input{
+    width: 350px;
+    height: 30px;
+    border-radius: 5px;
+}
+
+.autenticacion button{
+    width: 150px;
+    height: 30px;
+    font-size: 16px;
+}
+
+.autenticacion-elementos{
+    justify-content: space-around;
+    align-items: center;
+}

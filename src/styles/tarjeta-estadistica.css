@@ -1,0 +1,29 @@
+.tarjeta-estadistica {
+    width: 250px;
+    height: 100px;
+    background-color: #23B488;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+}
+
+.tarjeta-estadistica h2 {
+    font-size: 20px;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.tarjeta-estadistica h1 {
+    font-size: 40px;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    color: white;
+}
+
+.tarjeta-estadistica-destacada {
+    margin-bottom: 100px;
+}
