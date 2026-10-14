@@ -74,8 +74,8 @@ export default function Autenticacion() {
                     <h2>Correo</h2>
                     <input onChange={(e)=>{setLoginCredenciales((prev)=>({...prev, correo:e.target.value}))}}/>
                     <h2>Contraseña</h2>
-                    <input onChange={(e)=>{setLoginCredenciales((prev)=>({...prev, contrasenia:e.target.value}))}}/>
-                    <a onClick={() => { setLogin(false) }}>¿No tienes cuenta? Crea una cuenta</a>
+                    <input type="password" onChange={(e)=>{setLoginCredenciales((prev)=>({...prev, contrasenia:e.target.value}))}}/>
+                    <a style={{color:'white', cursor:'pointer'}} onClick={() => { setLogin(false) }}>¿No tienes cuenta? Crea una cuenta</a>
                     <button
                     onClick={()=>{
                         handleClicLogin()

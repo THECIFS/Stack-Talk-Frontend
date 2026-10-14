@@ -10,9 +10,13 @@ import { countAllPublicaciones } from '../services/publicaciones-service'
 import { countAllUsuarios } from '../services/usuario-service'
 import { countAllReacciones } from '../services/reaccion-service'
 import { countAllComentarios } from '../services/comentario-service'
+import { createOpinion } from "../services/opinion-service";
 
 export default function Home() {
-    
+
+
+    const [openCreateComentario, setOpenCreateComentario] = useState(false)
+
     const publicacionesPorCategoriaData = [
         { categoria: 'Tecnología', cantidad: 45 },
         { categoria: 'Programación', cantidad: 32 },
@@ -54,42 +58,53 @@ export default function Home() {
     }, [])
 
 
-        const [countPublicaciones, setCountPublicaciones] = useState(0)
-        const [countComentarios, setCountComentarios] = useState(0)
-        const [countUsuarios, setCountUsuarios] = useState(0)
-        const [countReacciones, setCountReacciones] = useState(0)
-    
-        useEffect(()=>{
-            const getCountPublicaciones = async () => {
-                const res = await countAllPublicaciones()
-                setCountPublicaciones(res)
-            }
-            
-            const getCountComentarios = async () =>{
-                const res = await countAllComentarios()
-                setCountComentarios(res)
-            }
-    
-            const getCountUsuarios = async () => {
-                const res = await countAllUsuarios()
-                setCountUsuarios(res)
-            }
-    
-            const getCountReacciones = async () => {
-                const res = await countAllReacciones()
-                setCountReacciones(res)
-            }
-    
-            getCountUsuarios()
-            getCountComentarios()
-            getCountReacciones()
-            getCountPublicaciones()
-        },[])
-    
+    const [countPublicaciones, setCountPublicaciones] = useState(0)
+    const [countComentarios, setCountComentarios] = useState(0)
+    const [countUsuarios, setCountUsuarios] = useState(0)
+    const [countReacciones, setCountReacciones] = useState(0)
+
+    useEffect(() => {
+        const getCountPublicaciones = async () => {
+            const res = await countAllPublicaciones()
+            setCountPublicaciones(res)
+        }
+
+        const getCountComentarios = async () => {
+            const res = await countAllComentarios()
+            setCountComentarios(res)
+        }
+
+        const getCountUsuarios = async () => {
+            const res = await countAllUsuarios()
+            setCountUsuarios(res)
+        }
+
+        const getCountReacciones = async () => {
+            const res = await countAllReacciones()
+            setCountReacciones(res)
+        }
+
+        getCountUsuarios()
+        getCountComentarios()
+        getCountReacciones()
+        getCountPublicaciones()
+    }, [])
+
 
     const { user } = useAuth()
 
     const isAdministrador = user?.rol === 'ADMIN'
+
+    const [opinionData, setOpinionData] = useState({
+        usuario_id: user?.usuario.id,
+        mensaje: '',
+        estado_aprobacion: 'APROBADO'
+    })
+
+    const handleClicCreateOpinion = async () => {
+        const res = await createOpinion(opinionData)
+        if (res) { alert('El comentario se realizo'); setOpenCreateComentario(!openCreateComentario) }
+    }
 
     return (
         <div>
@@ -205,7 +220,7 @@ export default function Home() {
                             <div style={{ alignItems: 'center', display: 'flex', flexDirection: 'column', gap: '20px', height: '100%', justifyContent: 'center', width: '250px' }}>
                                 <div style={{ alignItems: 'center', border: '1px solid black', borderRadius: '10px', display: 'flex', flexDirection: 'column', height: '350px', justifyContent: 'space-around', width: '250px' }}>
                                     <div style={{ height: '80px', width: '80px' }}><img style={{ borderRadius: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', width: '100%' }} src={user?.usuario?.foto_perfil} /></div>
-                                    <h1 style={{ fontSize: '18px', margin: 0 }}>{user?.usuario?.primer_nombre+" "+user?.usuario?.apellido_paterno+" "+user?.usuario?.apellido_materno}</h1>
+                                    <h1 style={{ fontSize: '18px', margin: 0 }}>{user?.usuario?.primer_nombre + " " + user?.usuario?.apellido_paterno + " " + user?.usuario?.apellido_materno}</h1>
                                     <p style={{ fontSize: '11px', margin: 0 }}>
                                         {user?.usuario?.biografia}
                                     </p>
@@ -226,7 +241,11 @@ export default function Home() {
                                     <h1 style={{ fontSize: '18px', margin: 0 }}>OPINA AHORA</h1>
                                     <p style={{ fontSize: '11px', margin: 0 }}>Crea un comentario sobre la comunidad y tus experiencias</p>
                                     <div style={{ height: '32px', width: '32px' }}>
-                                        <img style={{ backgroundColor: 'white', borderRadius: '5px', height: '100%', width: '100%' }} src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAwMDkiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0ibHVjaWRlIGx1Y2lkZS1tb3VzZSBwcmV2aWV3LWljb24iPjxyZWN0IHg9IjUiIHk9IjIiIHdpZHRoPSIxNCIgaGVpZ2h0PSIyMCIgcng9IjciLz48cGF0aCBkPSJNMTIgNnY0Ii8+PC9zdmc+" />
+                                        <img
+                                            onClick={() => {
+                                                setOpenCreateComentario(!openCreateComentario)
+                                            }}
+                                            style={{ backgroundColor: 'white', borderRadius: '5px', height: '100%', width: '100%' }} src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAwMDkiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0ibHVjaWRlIGx1Y2lkZS1tb3VzZSBwcmV2aWV3LWljb24iPjxyZWN0IHg9IjUiIHk9IjIiIHdpZHRoPSIxNCIgaGVpZ2h0PSIyMCIgcng9IjciLz48cGF0aCBkPSJNMTIgNnY0Ii8+PC9zdmc+" />
                                     </div>
                                 </div>
                             </div>
@@ -245,6 +264,57 @@ export default function Home() {
                                         )
                                     )
                                 }
+                            </div>
+                        </div>
+                    </div>
+                )
+            }
+
+            {
+                openCreateComentario && (
+                    <div>
+                        <div
+                            style={{
+                                inset: 0, top: 0, left: 0, position: 'fixed', zIndex: 999999, width: '100%', height: '100vh',
+                                backgroundColor: 'black', opacity: 0.5
+                            }}
+                        >
+                        </div>
+                        <div
+                            style={{
+                                inset: 0, top: 0, left: 0, position: 'fixed', zIndex: 999999, width: '100%', height: '100vh',
+                                display: 'flex', justifyContent: 'center', alignItems: 'center'
+                            }}
+                        >
+                            <div>
+                                <h1>NUEVO COMENTARIO</h1>
+                                <textarea
+                                    style={{
+                                        minWidth: '350px', maxWidth: '350px',
+                                        minHeight: '400px', maxHeight: '400px'
+                                    }}
+                                    onChange={(e) => { setOpinionData((prev) => ({ ...prev, mensaje: e.target.value })) }}
+                                />
+                                <div>
+                                    <button
+                                        onClick={() => {
+                                            setOpenCreateComentario(!openCreateComentario)
+                                        }}
+                                    >
+                                        <strong>
+                                            CERRAR
+                                        </strong>
+                                    </button>
+                                </div>
+                                <button
+                                    onClick={() => {
+                                        handleClicCreateOpinion()
+                                    }}
+                                >
+                                    <strong>
+                                        CREAR
+                                    </strong>
+                                </button>
                             </div>
                         </div>
                     </div>

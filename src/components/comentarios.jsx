@@ -22,7 +22,7 @@ export default function Comentarios() {
                 {
                     comentarios?.map(
                         comentario => (
-                            <ComentarioCardLanding src={comentario.usuario.foto_perfil} alt='Usuario' usuario={comentario.usuario.primer_nombre+" "+comentario.usuario.apellido_paterno} contenido={comentario.mensaje} fecha={comentario.fecha.split('T')[0]} />
+                            <ComentarioCardLanding src={comentario?.usuario?.foto_perfil} alt='Usuario' usuario={comentario?.usuario?.primer_nombre+" "+comentario?.usuario?.apellido_paterno} contenido={comentario?.mensaje} fecha={comentario?.fecha.split('T')[0]} />
                         )
                     )
                 }

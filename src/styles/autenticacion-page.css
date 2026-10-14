@@ -11,10 +11,12 @@
   border-radius: 20px;
   display: flex;
   flex-direction: column;
-  height: 550px;
+  height: 650px;
   width: 450px;
 }
 
 .ui-display-flex-562317 {
   display: flex;
+  padding: 1rem;
+  gap: 1rem;
 }
