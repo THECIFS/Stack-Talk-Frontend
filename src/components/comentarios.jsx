@@ -16,7 +16,7 @@ export default function Comentarios() {
 
     return (
         <div className="comentarios" id='comentarios'>
-            <h1 className="ui-margin-right-100px-text-align-end-836444">COMENTARIOS</h1>
+            <h1 className="ui-margin-right-100px-text-align-end-836444">OPINIONES</h1>
             <div
                 className="ui-align-items-center-display-flex-gap-20px-height-400px-justify-content-center-width-100percent-6d1ea4">
                 {

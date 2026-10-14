@@ -96,13 +96,13 @@ export default function Home() {
     const isAdministrador = user?.rol === 'ADMIN'
 
     const [opinionData, setOpinionData] = useState({
-        usuario_id: user?.usuario.id,
+        usuario_id: user?.usuario?.id,
         mensaje: '',
         estado_aprobacion: 'APROBADO'
     })
 
     const handleClicCreateOpinion = async () => {
-        const res = await createOpinion(opinionData)
+        const res = await createOpinion({...opinionData, usuario_id:user?.usuario?.id})
         if (res) { alert('El comentario se realizo'); setOpenCreateComentario(!openCreateComentario) }
     }
 
